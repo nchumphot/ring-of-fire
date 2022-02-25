@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dashboard } from "../components/Dashboard";
 import { PickACardModal } from "../components/PickACardModal";
 import { ICard } from "../interfaces/ICard";
@@ -19,6 +19,16 @@ export function GamePlay(props: {
   const [questionMaster, setQuestionMaster] = useState<IPlayer[]>([]);
   const [heavenMaster, setHeavenMaster] = useState<IPlayer[]>([]);
   const [thumbMaster, setThumbMaster] = useState<IPlayer[]>([]);
+  const [chanceOfBreaking, setChanceOfBreaking] = useState<number>(0);
+
+  useEffect(() => {
+    const k = (2 * Math.log(2)) / (51 * 51);
+    const A = 2;
+    const N = props.cards.length;
+    setChanceOfBreaking(
+      (A * Math.exp(-k * (51 * (N - 1) - (N - 1) ** 2 / 2)) - 1) * 100
+    );
+  }, [props.cards]);
 
   if (props.cards.length !== 0) {
     return (
@@ -69,6 +79,7 @@ export function GamePlay(props: {
             setRules,
             setTeams,
             teams,
+            chanceOfBreaking,
           }}
         />
         <Dashboard
@@ -83,6 +94,7 @@ export function GamePlay(props: {
             thumbMaster,
             setThumbMaster,
             teams,
+            chanceOfBreaking,
           }}
         />
         <hr />
