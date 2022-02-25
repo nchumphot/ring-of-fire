@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
@@ -15,15 +16,16 @@ export function Dashboard(props: {
   setThumbMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
   teams: ITeam[];
 }): JSX.Element {
-  const numberOfKings = props.cards.filter((c) => c.rank === "K").length;
+  const [noOfKings, setNoOfKings] = useState<number>(0);
+  useEffect(() => {
+    setNoOfKings(props.cards.filter((c) => c.rank === "K").length);
+  }, [props.cards]);
   return (
     <div>
       <h2>Game Information</h2>
       <p>Current player: {props.currentPlayer.name}</p>
       <p>There are {props.cards.length} cards left.</p>
-      <p>{`There are ${numberOfKings} King${
-        numberOfKings > 1 && "s"
-      } left.`}</p>
+      <p>{`There are ${noOfKings} King${noOfKings > 1 && "s"} left.`}</p>
       <h3>❓ Question Master</h3>
       <p>
         {props.questionMaster.length !== 0
