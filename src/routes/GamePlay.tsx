@@ -22,51 +22,39 @@ export function GamePlay(props: {
 
   if (props.cards.length !== 0) {
     return (
-      <div>
+      <div className="m-2 p-2">
         <h1>🔥 Ring of Fire 🔥</h1>
         <hr />
-        <Dashboard
-          cards={props.cards}
-          {...{
-            currentPlayer,
-            rules,
-            questionMaster,
-            setQuestionMaster,
-            heavenMaster,
-            setHeavenMaster,
-            thumbMaster,
-            setThumbMaster,
-            teams,
-          }}
-        />
-        <hr />
-        <button
-          type="button"
-          className="btn btn-warning"
-          onClick={() => {
-            props.setCards(shuffleCards(props.cards));
-            alert("Cards have been shuffled.");
-          }}
-        >
-          ♻️ Shuffle cards
-        </button>
-        <button
-          type="button"
-          className="btn btn-success"
-          data-toggle="modal"
-          data-target="#pick-a-card-modal"
-          onClick={() => {
-            if (props.cards[0].rank === "5") {
-              setThumbMaster([currentPlayer]);
-            } else if (props.cards[0].rank === "7") {
-              setHeavenMaster([currentPlayer]);
-            } else if (props.cards[0].rank === "Q") {
-              setQuestionMaster([currentPlayer]);
-            }
-          }}
-        >
-          🃏 Pick a card
-        </button>
+        <div className="d-flex justify-content-center">
+          <button
+            type="button"
+            className="btn btn-warning btn-lg m-1"
+            onClick={() => {
+              props.setCards(shuffleCards(props.cards));
+              alert("Cards have been shuffled.");
+            }}
+          >
+            ♻️ Shuffle cards
+          </button>
+          <button
+            type="button"
+            className="btn btn-success btn-lg m-1"
+            data-toggle="modal"
+            data-target="#pick-a-card-modal"
+            onClick={() => {
+              if (props.cards[0].rank === "5") {
+                setThumbMaster([currentPlayer]);
+              } else if (props.cards[0].rank === "7") {
+                setHeavenMaster([currentPlayer]);
+              } else if (props.cards[0].rank === "Q") {
+                setQuestionMaster([currentPlayer]);
+              }
+            }}
+          >
+            🃏 Pick a card
+          </button>
+        </div>
+
         <PickACardModal
           card={props.cards[0]}
           cards={props.cards}
@@ -83,6 +71,21 @@ export function GamePlay(props: {
             teams,
           }}
         />
+        <Dashboard
+          cards={props.cards}
+          {...{
+            currentPlayer,
+            rules,
+            questionMaster,
+            setQuestionMaster,
+            heavenMaster,
+            setHeavenMaster,
+            thumbMaster,
+            setThumbMaster,
+            teams,
+          }}
+        />
+        <hr />
       </div>
     );
   } else {
