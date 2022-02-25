@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Dashboard } from "../components/Dashboard";
 import { PickACardModal } from "../components/PickACardModal";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
@@ -11,14 +12,33 @@ export function GamePlay(props: {
   setCards: React.Dispatch<React.SetStateAction<ICard[]>>;
 }): JSX.Element {
   const [currentPlayer, setCurrentPlayer] = useState<IPlayer>(props.players[0]);
+
+  // states to be passed to dashboard
   const [teams, setTeams] = useState<ITeam[]>([]);
+  const [rules, setRules] = useState<string[]>([]);
+  const [questionMaster, setQuestionMaster] = useState<IPlayer[]>([]);
+  const [heavenMaster, setHeavenMaster] = useState<IPlayer[]>([]);
+  const [thumbMaster, setThumbMaster] = useState<IPlayer[]>([]);
+
   if (props.cards.length !== 0) {
     return (
       <div>
         <h1>🔥 Ring of Fire 🔥</h1>
-        <h2>Current Player: {currentPlayer.name}</h2>
         <hr />
-        <h3>There are {props.cards.length} cards left.</h3>
+        <Dashboard
+          cards={props.cards}
+          {...{
+            currentPlayer,
+            rules,
+            questionMaster,
+            setQuestionMaster,
+            heavenMaster,
+            setHeavenMaster,
+            thumbMaster,
+            setThumbMaster,
+          }}
+        />
+        <hr />
         <button
           type="button"
           className="btn btn-warning"
