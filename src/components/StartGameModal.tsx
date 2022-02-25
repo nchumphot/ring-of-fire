@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function StartGameModal(): JSX.Element {
+  let navigate = useNavigate();
   return (
     <div
       className="modal fade"
@@ -29,15 +30,14 @@ export function StartGameModal(): JSX.Element {
             >
               Cancel
             </button>
-            <Link to="/start">
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-dismiss="modal"
-              >
-                Start
-              </button>
-            </Link>
+            <button
+              type="button"
+              className="btn btn-primary"
+              data-dismiss="modal"
+              onClick={() => navigate("/start")}
+            >
+              Start
+            </button>
           </div>
         </div>
       </div>
