@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { cardDefinitions } from "../utils/cardDefinitions";
@@ -7,7 +8,19 @@ export function PickACardModal(props: {
   players: IPlayer[];
   currentPlayer: IPlayer;
   setCurrentPlayer: React.Dispatch<React.SetStateAction<IPlayer>>;
+  setThumbMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
+  setHeavenMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
+  setQuestionMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
 }): JSX.Element {
+  useEffect(() => {
+    if (props.card.rank === "5") {
+      props.setThumbMaster([props.currentPlayer]);
+    } else if (props.card.rank === "7") {
+      props.setHeavenMaster([props.currentPlayer]);
+    } else if (props.card.rank === "Q") {
+      props.setQuestionMaster([props.currentPlayer]);
+    }
+  });
   return (
     <div
       className="modal fade"
