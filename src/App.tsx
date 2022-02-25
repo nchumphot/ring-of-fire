@@ -6,11 +6,12 @@ import { IPlayer } from "./interfaces/IPlayer";
 import { GamePlay } from "./routes/GamePlay";
 import { HomePage } from "./routes/HomePage";
 import { generateCards } from "./utils/generateCards";
+import { shuffleCards } from "./utils/shuffleCards";
 
 function App(): JSX.Element {
   const [players, setPlayers] = useState<IPlayer[]>([]);
   const newCards = generateCards();
-  const [cards, setCards] = useState<ICard[]>(newCards);
+  const [cards, setCards] = useState<ICard[]>(shuffleCards(newCards));
   console.log(cards);
   return (
     <div>
