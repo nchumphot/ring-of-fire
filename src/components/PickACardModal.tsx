@@ -1,7 +1,9 @@
-import { useEffect } from "react";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
+import { ITeam } from "../interfaces/ITeam";
 import { cardDefinitions } from "../utils/cardDefinitions";
+import { AddARule } from "./AddARule";
+import { PickAMate } from "./PickAMate";
 
 export function PickACardModal(props: {
   card: ICard;
@@ -11,11 +13,16 @@ export function PickACardModal(props: {
   setThumbMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
   setHeavenMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
   setQuestionMaster: React.Dispatch<React.SetStateAction<IPlayer[]>>;
+  setRules: React.Dispatch<React.SetStateAction<string[]>>;
+  teams: ITeam[];
+  setTeams: React.Dispatch<React.SetStateAction<ITeam[]>>;
 }): JSX.Element {
   return (
     <div
       className="modal fade"
       id="pick-a-card-modal"
+      data-keyboard="false"
+      data-backdrop="static"
       tabIndex={-1}
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -28,13 +35,31 @@ export function PickACardModal(props: {
               {`${props.card.rank} of ${props.card.suit}`}
             </h1>
           </div>
-          <div className="modal-body">{cardDefinitions(props.card)}</div>
+          <div className="modal-body">
+            {cardDefinitions(props.card)}
+            {props.card.rank === "J" && <AddARule setRules={props.setRules} />}
+            {props.card.rank === "8" && (
+              <PickAMate
+                players={props.players}
+                teams={props.teams}
+                currentPlayer={props.currentPlayer}
+                setTeams={props.setTeams}
+              />
+            )}
+          </div>
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-success"
               data-dismiss="modal"
               onClick={() => {
+                if (props.card.rank === "5") {
+                  props.setThumbMaster([props.currentPlayer]);
+                } else if (props.card.rank === "7") {
+                  props.setHeavenMaster([props.currentPlayer]);
+                } else if (props.card.rank === "Q") {
+                  props.setQuestionMaster([props.currentPlayer]);
+                }
                 const idx = props.players.indexOf(props.currentPlayer);
                 const newIdx = idx + 1 < props.players.length ? idx + 1 : 0;
                 props.setCurrentPlayer(props.players[newIdx]);
