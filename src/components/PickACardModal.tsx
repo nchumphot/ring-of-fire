@@ -20,9 +20,9 @@ export function PickACardModal(props: {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLabel">
+            <h1 className="modal-title text-success" id="exampleModalLabel">
               {`${props.card.rank} of ${props.card.suit}`}
-            </h5>
+            </h1>
           </div>
           <div className="modal-body">{cardDefinitions(props.card)}</div>
           <div className="modal-footer">
