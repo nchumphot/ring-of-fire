@@ -31,17 +31,30 @@ export function Dashboard(props: {
       <p>
         {props.thumbMaster.length !== 0 ? props.thumbMaster[0].name : "None"}
       </p>
-      <button type="button" className="btn btn-warning">
+      <button
+        type="button"
+        className="btn btn-warning"
+        onClick={() => props.setThumbMaster([])}
+      >
         Reset
       </button>
       <h3>Heaven Master</h3>
       <p>
         {props.heavenMaster.length !== 0 ? props.heavenMaster[0].name : "None"}
       </p>
-      <button type="button" className="btn btn-warning">
+      <button
+        type="button"
+        className="btn btn-warning"
+        onClick={() => props.setHeavenMaster([])}
+      >
         Reset
       </button>
       <h3>Rules</h3>
+      <ul>
+        {props.rules.map((r) => (
+          <li>{r}</li>
+        ))}
+      </ul>
     </div>
   );
 }
