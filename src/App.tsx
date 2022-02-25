@@ -17,7 +17,10 @@ function App(): JSX.Element {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage {...{ players, setPlayers }} />} />
-          <Route path="/start" element={<GamePlay />} />
+          <Route
+            path="/start"
+            element={<GamePlay {...{ players, cards, setCards }} />}
+          />
         </Routes>
       </Router>
     </div>
