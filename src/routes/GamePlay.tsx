@@ -36,6 +36,7 @@ export function GamePlay(props: {
             setHeavenMaster,
             thumbMaster,
             setThumbMaster,
+            teams,
           }}
         />
         <hr />
@@ -62,14 +63,14 @@ export function GamePlay(props: {
             } else if (props.cards[0].rank === "Q") {
               setQuestionMaster([currentPlayer]);
             }
-            const updatedCards = props.cards.filter((card, idx) => idx !== 0);
-            props.setCards(updatedCards);
           }}
         >
           🃏 Pick a card
         </button>
         <PickACardModal
           card={props.cards[0]}
+          cards={props.cards}
+          setCards={props.setCards}
           players={props.players}
           {...{
             currentPlayer,
@@ -77,6 +78,9 @@ export function GamePlay(props: {
             setThumbMaster,
             setHeavenMaster,
             setQuestionMaster,
+            setRules,
+            setTeams,
+            teams,
           }}
         />
       </div>

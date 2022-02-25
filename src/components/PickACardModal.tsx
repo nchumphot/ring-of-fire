@@ -7,6 +7,8 @@ import { PickAMate } from "./PickAMate";
 
 export function PickACardModal(props: {
   card: ICard;
+  cards: ICard[];
+  setCards: React.Dispatch<React.SetStateAction<ICard[]>>;
   players: IPlayer[];
   currentPlayer: IPlayer;
   setCurrentPlayer: React.Dispatch<React.SetStateAction<IPlayer>>;
@@ -53,13 +55,10 @@ export function PickACardModal(props: {
               className="btn btn-success"
               data-dismiss="modal"
               onClick={() => {
-                if (props.card.rank === "5") {
-                  props.setThumbMaster([props.currentPlayer]);
-                } else if (props.card.rank === "7") {
-                  props.setHeavenMaster([props.currentPlayer]);
-                } else if (props.card.rank === "Q") {
-                  props.setQuestionMaster([props.currentPlayer]);
-                }
+                const updatedCards = props.cards.filter(
+                  (card, idx) => idx !== 0
+                );
+                props.setCards(updatedCards);
                 const idx = props.players.indexOf(props.currentPlayer);
                 const newIdx = idx + 1 < props.players.length ? idx + 1 : 0;
                 props.setCurrentPlayer(props.players[newIdx]);
