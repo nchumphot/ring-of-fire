@@ -2,6 +2,7 @@ import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
 import { cardDefinitions } from "../utils/cardDefinitions";
+import { displaySuit } from "../utils/displaySuit";
 import { AddARule } from "./AddARule";
 import { PickAMate } from "./PickAMate";
 
@@ -18,7 +19,10 @@ export function PickACardModal(props: {
   setRules: React.Dispatch<React.SetStateAction<string[]>>;
   teams: ITeam[];
   setTeams: React.Dispatch<React.SetStateAction<ITeam[]>>;
+  chanceOfBreaking: number;
 }): JSX.Element {
+  const random = Math.random();
+  console.log(random);
   return (
     <div
       className="modal"
@@ -34,10 +38,15 @@ export function PickACardModal(props: {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title text-success" id="exampleModalLabel">
-              {`${props.card.rank} of ${props.card.suit}`}
+              {`${props.card.rank} of ${props.card.suit} ${displaySuit(
+                props.card
+              )}`}
             </h1>
           </div>
           <div className="modal-body">
+            {random * 100 <= props.chanceOfBreaking && (
+              <h2 className="text-danger">You broke the ring!</h2>
+            )}
             {cardDefinitions(props.card)}
             {props.card.rank === "J" && <AddARule setRules={props.setRules} />}
             {props.card.rank === "8" && (
