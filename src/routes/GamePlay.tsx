@@ -55,6 +55,13 @@ export function GamePlay(props: {
           data-toggle="modal"
           data-target="#pick-a-card-modal"
           onClick={() => {
+            if (props.cards[0].rank === "5") {
+              setThumbMaster([currentPlayer]);
+            } else if (props.cards[0].rank === "7") {
+              setHeavenMaster([currentPlayer]);
+            } else if (props.cards[0].rank === "Q") {
+              setQuestionMaster([currentPlayer]);
+            }
             const updatedCards = props.cards.filter((card, idx) => idx !== 0);
             props.setCards(updatedCards);
           }}
@@ -64,7 +71,13 @@ export function GamePlay(props: {
         <PickACardModal
           card={props.cards[0]}
           players={props.players}
-          {...{ currentPlayer, setCurrentPlayer }}
+          {...{
+            currentPlayer,
+            setCurrentPlayer,
+            setThumbMaster,
+            setHeavenMaster,
+            setQuestionMaster,
+          }}
         />
       </div>
     );
