@@ -21,7 +21,7 @@ export function PickACardModal(props: {
 }): JSX.Element {
   return (
     <div
-      className="modal fade"
+      className="modal"
       id="pick-a-card-modal"
       data-keyboard="false"
       data-backdrop="static"
