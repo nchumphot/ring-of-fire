@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
+import { doesPlayerHaveATeam } from "../utils/doesPlayerHaveATeam";
 import { getTeamMemberNames } from "../utils/getTeamMemberNames";
 
 export function Dashboard(props: {
@@ -21,11 +22,27 @@ export function Dashboard(props: {
   useEffect(() => {
     setNoOfKings(props.cards.filter((c) => c.rank === "K").length);
   }, [props.cards]);
+  const [isPlayerInTeam, teamNo] = doesPlayerHaveATeam(
+    props.currentPlayer,
+    props.teams
+  );
   return (
     <div className="container-lg">
       <div className="row">
         <div className="col m-2 p-2 border border-dark">
           <p>Current player: {props.currentPlayer.name}</p>
+          {isPlayerInTeam && teamNo !== null ? (
+            <p>
+              {`🔒 Team:
+              ${getTeamMemberNames(
+                props.teams.filter((team) => team.id === teamNo)[0]
+              )}`}
+            </p>
+          ) : (
+            <p>
+              <em>Not in a team</em>
+            </p>
+          )}
         </div>
       </div>
       <div className="row">
@@ -51,7 +68,7 @@ export function Dashboard(props: {
           <p>{`Probability of getting the King's cup: ${
             noOfKings > 1
               ? "0"
-              : ((noOfKings / props.cards.length) * 100).toString(2)
+              : ((noOfKings / props.cards.length) * 100).toFixed(0)
           }%`}</p>
         </div>
       </div>
