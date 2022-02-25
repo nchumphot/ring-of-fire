@@ -17,8 +17,15 @@ export function Dashboard(props: {
   teams: ITeam[];
 }): JSX.Element {
   const [noOfKings, setNoOfKings] = useState<number>(0);
+  const [chanceOfBreaking, setChanceOfBreaking] = useState<number>(0);
   useEffect(() => {
     setNoOfKings(props.cards.filter((c) => c.rank === "K").length);
+    const k = (2 * Math.log(2)) / (51 * 51);
+    const A = 2;
+    const N = props.cards.length;
+    setChanceOfBreaking(
+      (A * Math.exp(-k * (51 * (N - 1) - (N - 1) ** 2 / 2)) - 1) * 100
+    );
   }, [props.cards]);
   return (
     <div className="container-lg">
@@ -31,7 +38,12 @@ export function Dashboard(props: {
         <div className="col m-2 p-2 border border-dark">
           <h3>The Deck</h3>
           <p>There are {props.cards.length} cards left.</p>
-          <p>Probability of breaking: </p>
+          <p>
+            Probability of breaking:{" "}
+            {chanceOfBreaking >= 0.01
+              ? `${chanceOfBreaking.toFixed(2)}%`
+              : "Less than 0.01%"}
+          </p>
         </div>
         <div
           className={`col m-2 p-2 border border-${
@@ -39,10 +51,14 @@ export function Dashboard(props: {
           }`}
         >
           <h3>The King's Cup</h3>
-          <p>{`There are ${noOfKings} King${noOfKings > 1 && "s"} left.`}</p>
+          <p>{`There ${noOfKings > 1 ? "are" : "is"} ${noOfKings} King${
+            noOfKings > 1 ? "s" : ""
+          } left.`}</p>
           <p>{`Probability of getting the King's cup: ${
-            noOfKings > 1 ? "0" : (noOfKings / props.cards.length).toString()
-          }`}</p>
+            noOfKings > 1
+              ? "0"
+              : ((noOfKings / props.cards.length) * 100).toString()
+          }%`}</p>
         </div>
       </div>
       <div className="row">
