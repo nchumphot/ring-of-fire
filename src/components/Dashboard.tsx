@@ -57,7 +57,7 @@ export function Dashboard(props: {
           <p>{`Probability of getting the King's cup: ${
             noOfKings > 1
               ? "0"
-              : ((noOfKings / props.cards.length) * 100).toString()
+              : ((noOfKings / props.cards.length) * 100).toString(2)
           }%`}</p>
         </div>
       </div>
