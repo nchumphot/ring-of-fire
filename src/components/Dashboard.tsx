@@ -30,7 +30,9 @@ export function Dashboard(props: {
     <div className="container-lg">
       <div className="row">
         <div className="col m-2 p-2 border border-dark">
-          <p>Current player: {props.currentPlayer.name}</p>
+          <h3>
+            Current player: <b>{props.currentPlayer.name}</b>
+          </h3>
           {isPlayerInTeam && teamNo !== null ? (
             <p>
               {`🔒 Team:
