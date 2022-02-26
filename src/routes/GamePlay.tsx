@@ -33,7 +33,7 @@ export function GamePlay(props: {
   if (props.cards.length !== 0) {
     return (
       <div className="m-2 p-2">
-        <h1>🔥 Ring of Fire 🔥</h1>
+        <h1>🔥 Pacific Ring of Fire 🔥</h1>
         <hr />
         <div className="d-flex justify-content-center">
           <button

@@ -10,15 +10,16 @@ export function HomePage(props: {
 }): JSX.Element {
   const [typedName, setTypedName] = useState<string>("");
   return (
-    <div>
-      <h1>Welcome to the Ring of Fire!</h1>
+    <div className="m-2 p-2">
+      <h1>🔥 Welcome to Pacific Ring of Fire! 🔥</h1>
+      <small>Created by Veta</small>
       {props.players.length < 3 ? (
         <p className="text-danger">Please add at least 3 players to start.</p>
       ) : (
         <div>
           <button
             type="button"
-            className="btn btn-success"
+            className="btn btn-success btn-lg my-2"
             data-toggle="modal"
             data-target="#start-game-modal"
           >
@@ -29,12 +30,14 @@ export function HomePage(props: {
       )}
       <div>
         <input
+          className="me-2"
           type="text"
           value={typedName}
           onChange={(e) => setTypedName(e.target.value)}
           placeholder="Enter player name here..."
         />
         <button
+          className="btn btn-success btn-sm"
           type="button"
           onClick={() => {
             handleAddPlayer(typedName, props.setPlayers);
