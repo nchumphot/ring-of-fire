@@ -22,7 +22,6 @@ export function PickACardModal(props: {
   chanceOfBreaking: number;
 }): JSX.Element {
   const random = Math.random();
-  console.log(random);
   return (
     <div
       className="modal"
