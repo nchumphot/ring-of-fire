@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Dashboard } from "../components/Dashboard";
 import { PickACardModal } from "../components/PickACardModal";
 import { ICard } from "../interfaces/ICard";
@@ -12,14 +13,13 @@ export function GamePlay(props: {
   setCards: React.Dispatch<React.SetStateAction<ICard[]>>;
 }): JSX.Element {
   const [currentPlayer, setCurrentPlayer] = useState<IPlayer>(props.players[0]);
-
-  // states to be passed to dashboard
   const [teams, setTeams] = useState<ITeam[]>([]);
   const [rules, setRules] = useState<string[]>([]);
   const [questionMaster, setQuestionMaster] = useState<IPlayer[]>([]);
   const [heavenMaster, setHeavenMaster] = useState<IPlayer[]>([]);
   const [thumbMaster, setThumbMaster] = useState<IPlayer[]>([]);
   const [chanceOfBreaking, setChanceOfBreaking] = useState<number>(0);
+  let navigate = useNavigate();
 
   useEffect(() => {
     const k = (2 * Math.log(2)) / (51 * 51);
@@ -101,6 +101,20 @@ export function GamePlay(props: {
       </div>
     );
   } else {
-    return <h1>Game over.</h1>;
+    return (
+      <div className="m-2 p-2">
+        <h1>🔥 Pacific Ring of Fire 🔥</h1>
+        <hr />
+        <h2 className="text-danger">Game over!</h2>
+        <p>Not drunk yet? Press the button below!</p>
+        <button
+          type="button"
+          className="btn btn-warning btn-lg"
+          onClick={() => navigate("/")}
+        >
+          Restart game
+        </button>
+      </div>
+    );
   }
 }

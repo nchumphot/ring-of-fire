@@ -32,7 +32,7 @@ export function StartGameModal(): JSX.Element {
             </button>
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-success"
               data-dismiss="modal"
               onClick={() => navigate("/start")}
             >
