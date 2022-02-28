@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
@@ -22,6 +23,20 @@ export function PickACardModal(props: {
   chanceOfBreaking: number;
 }): JSX.Element {
   const random = Math.random();
+  const [turnCompleted, setTurnCompleted] = useState<boolean>(false);
+  useEffect(() => {
+    switch (props.card.rank) {
+      case "8":
+        setTurnCompleted(false);
+        break;
+      case "J":
+        setTurnCompleted(false);
+        break;
+      default:
+        setTurnCompleted(true);
+        break;
+    }
+  }, [props.card.rank]);
   return (
     <div
       className="modal"
@@ -47,13 +62,19 @@ export function PickACardModal(props: {
               <h2 className="text-danger">You broke the ring!</h2>
             )}
             {cardDefinitions(props.card)}
-            {props.card.rank === "J" && <AddARule setRules={props.setRules} />}
+            {props.card.rank === "J" && (
+              <AddARule
+                setRules={props.setRules}
+                setTurnCompleted={setTurnCompleted}
+              />
+            )}
             {props.card.rank === "8" && (
               <PickAMate
                 players={props.players}
                 teams={props.teams}
                 currentPlayer={props.currentPlayer}
                 setTeams={props.setTeams}
+                setTurnCompleted={setTurnCompleted}
               />
             )}
           </div>
@@ -61,6 +82,7 @@ export function PickACardModal(props: {
             <button
               type="button"
               className="btn btn-success"
+              disabled={!turnCompleted}
               data-dismiss="modal"
               onClick={() => {
                 const updatedCards = props.cards.filter(

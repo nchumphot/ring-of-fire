@@ -11,6 +11,7 @@ export function PickAMate(props: {
   players: IPlayer[];
   teams: ITeam[];
   setTeams: React.Dispatch<React.SetStateAction<ITeam[]>>;
+  setTurnCompleted: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const [isPlayerInATeam, teamNo] = doesPlayerHaveATeam(
     props.currentPlayer,
@@ -56,6 +57,7 @@ export function PickAMate(props: {
                   );
                 }
                 setTeamSelected(true);
+                props.setTurnCompleted(true);
               }}
             >
               {player.name}
@@ -93,6 +95,7 @@ export function PickAMate(props: {
                     );
                   }
                   setTeamSelected(true);
+                  props.setTurnCompleted(true);
                 }}
               >
                 {getTeamMemberNames(team)}
