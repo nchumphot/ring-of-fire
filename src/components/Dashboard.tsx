@@ -133,8 +133,8 @@ export function Dashboard(props: {
             <p>None</p>
           ) : (
             <ul>
-              {props.rules.map((r) => (
-                <li>{r}</li>
+              {props.rules.map((r, idx) => (
+                <li key={idx}>{r}</li>
               ))}
             </ul>
           )}
@@ -146,7 +146,7 @@ export function Dashboard(props: {
           ) : (
             <ul>
               {props.teams.map((t) => (
-                <li>{getTeamMemberNames(t)}</li>
+                <li key={t.id}>{getTeamMemberNames(t)}</li>
               ))}
             </ul>
           )}
