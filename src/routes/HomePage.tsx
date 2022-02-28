@@ -51,7 +51,12 @@ export function HomePage(props: {
         <div>
           <h2>Current players:</h2>
           {props.players.map((p) => (
-            <PlayerCard key={p.id} player={p} />
+            <PlayerCard
+              key={p.id}
+              player={p}
+              players={props.players}
+              setPlayers={props.setPlayers}
+            />
           ))}
         </div>
       )}
