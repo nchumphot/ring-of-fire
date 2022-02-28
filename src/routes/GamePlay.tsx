@@ -5,6 +5,7 @@ import { PickACardModal } from "../components/PickACardModal";
 import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
+import { generateCards } from "../utils/generateCards";
 import { shuffleCards } from "../utils/shuffleCards";
 
 export function GamePlay(props: {
@@ -110,7 +111,11 @@ export function GamePlay(props: {
         <button
           type="button"
           className="btn btn-warning btn-lg"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            const newCards = generateCards();
+            props.setCards(shuffleCards(newCards));
+            navigate("/");
+          }}
         >
           Restart game
         </button>
