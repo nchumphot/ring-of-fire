@@ -12,7 +12,6 @@ function App(): JSX.Element {
   const [players, setPlayers] = useState<IPlayer[]>([]);
   const newCards = generateCards();
   const [cards, setCards] = useState<ICard[]>(shuffleCards(newCards));
-  console.log(cards);
   return (
     <div>
       <Router>

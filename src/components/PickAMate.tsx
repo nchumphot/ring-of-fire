@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
 import { createNewTeam } from "../utils/createNewTeam";
@@ -26,6 +26,7 @@ export function PickAMate(props: {
       !playersWithATeam.some((p) => p.id === player.id) &&
       player.id !== props.currentPlayer.id
   );
+  useEffect(() => setTeamSelected(false), [props.currentPlayer]);
   if (teamSelected === false) {
     return (
       <div>
@@ -33,12 +34,20 @@ export function PickAMate(props: {
           playersWithNoTeam.map((player) => (
             <button
               type="button"
+              key={player.id}
               className="btn btn-primary me-2"
               value={player.id}
               onClick={() => {
                 if (isPlayerInATeam === true && teamNo !== null) {
-                  joinExistingTeam(player, teamNo, props.teams, props.setTeams);
+                  // if current player already has a team, selected player joins his/her exisitng team
+                  joinExistingTeam(
+                    [player],
+                    teamNo,
+                    props.teams,
+                    props.setTeams
+                  );
                 } else {
+                  // else if current player does not have a team, selected player joins a new team with him/her
                   createNewTeam(
                     props.currentPlayer,
                     player.id,
@@ -58,24 +67,26 @@ export function PickAMate(props: {
             .map((team) => (
               <button
                 type="button"
+                key={team.id}
                 className="btn btn-primary me-2"
                 value={team.id}
                 onClick={() => {
                   if (isPlayerInATeam === true && teamNo !== null) {
-                    for (const member of team.members) {
-                      joinExistingTeam(
-                        member,
-                        teamNo,
-                        props.teams,
-                        props.setTeams
-                      );
-                    }
+                    // CONTAINS BUGS
+                    // if current player already has a team, selected team merges with his/her team
+                    joinExistingTeam(
+                      team.members,
+                      teamNo,
+                      props.teams,
+                      props.setTeams
+                    );
                     props.setTeams((prev) =>
                       prev.filter((t) => t.id !== team.id)
                     );
                   } else {
+                    // else if current player does not have a team, he/she joins selected team
                     joinExistingTeam(
-                      props.currentPlayer,
+                      [props.currentPlayer],
                       team.id,
                       props.teams,
                       props.setTeams
