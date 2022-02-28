@@ -3,6 +3,7 @@ import { ICard } from "../interfaces/ICard";
 import { IPlayer } from "../interfaces/IPlayer";
 import { ITeam } from "../interfaces/ITeam";
 import { cardDefinitions } from "../utils/cardDefinitions";
+import { cardImageURL } from "../utils/cardImageURL";
 import { displaySuit } from "../utils/displaySuit";
 import { AddARule } from "./AddARule";
 import { PickAMate } from "./PickAMate";
@@ -61,7 +62,14 @@ export function PickACardModal(props: {
             {random * 100 <= props.chanceOfBreaking && (
               <h2 className="text-danger">You broke the ring!</h2>
             )}
+            <img
+              alt={"Card"}
+              src={cardImageURL(props.card)}
+              className="mx-auto d-block"
+            />
+            <br />
             {cardDefinitions(props.card)}
+
             {props.card.rank === "J" && (
               <AddARule
                 setRules={props.setRules}
