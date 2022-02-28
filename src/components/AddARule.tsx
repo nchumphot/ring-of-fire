@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export function AddARule(props: {
   setRules: React.Dispatch<React.SetStateAction<string[]>>;
+  setTurnCompleted: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const [typedRule, setTypedRule] = useState<string>("");
   const [ruleAdded, setRuleAdded] = useState<boolean>(false);
@@ -22,6 +23,7 @@ export function AddARule(props: {
           onClick={() => {
             props.setRules((prev) => [...prev, typedRule]);
             setRuleAdded(true);
+            props.setTurnCompleted(true);
           }}
         >
           Add rule
