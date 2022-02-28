@@ -1,4 +1,5 @@
 import { IPlayer } from "../interfaces/IPlayer";
+import { EditPlayerModal } from "./EditPlayerModal";
 
 export function PlayerCard(props: {
   player: IPlayer;
@@ -13,9 +14,19 @@ export function PlayerCard(props: {
             <h3>{props.player.name}</h3>
           </div>
           <div className="col">
-            <button type="button" className="btn btn-warning btn-sm me-2">
+            <button
+              type="button"
+              className="btn btn-warning btn-sm me-2"
+              data-toggle="modal"
+              data-target={`#edit-player-${props.player.id}`}
+            >
               Edit
             </button>
+            <EditPlayerModal
+              player={props.player}
+              players={props.players}
+              setPlayers={props.setPlayers}
+            />
             <button
               type="button"
               className="btn btn-danger btn-sm"
