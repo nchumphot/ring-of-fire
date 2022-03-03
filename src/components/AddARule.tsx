@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function AddARule(props: {
   setRules: React.Dispatch<React.SetStateAction<string[]>>;
@@ -6,6 +6,7 @@ export function AddARule(props: {
 }): JSX.Element {
   const [typedRule, setTypedRule] = useState<string>("");
   const [ruleAdded, setRuleAdded] = useState<boolean>(false);
+  useEffect(() => setRuleAdded(false), []);
   if (ruleAdded === false) {
     return (
       <form>
@@ -24,6 +25,7 @@ export function AddARule(props: {
             props.setRules((prev) => [...prev, typedRule]);
             setRuleAdded(true);
             props.setTurnCompleted(true);
+            setTypedRule("");
           }}
         >
           Add rule
