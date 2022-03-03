@@ -28,7 +28,11 @@ export function PickACardModal(props: {
   useEffect(() => {
     switch (props.card.rank) {
       case "8":
-        setTurnCompleted(false);
+        if (props.teams[0].members.length === props.players.length) {
+          setTurnCompleted(true);
+        } else {
+          setTurnCompleted(false);
+        }
         break;
       case "J":
         setTurnCompleted(false);
@@ -37,7 +41,7 @@ export function PickACardModal(props: {
         setTurnCompleted(true);
         break;
     }
-  }, [props.card.rank]);
+  }, [props.card.rank, props.players.length, props.teams]);
   return (
     <div
       className="modal"
