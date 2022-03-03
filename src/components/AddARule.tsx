@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import { ICard } from "../interfaces/ICard";
 
 export function AddARule(props: {
+  card: ICard;
   setRules: React.Dispatch<React.SetStateAction<string[]>>;
   setTurnCompleted: React.Dispatch<React.SetStateAction<boolean>>;
 }): JSX.Element {
   const [typedRule, setTypedRule] = useState<string>("");
   const [ruleAdded, setRuleAdded] = useState<boolean>(false);
-  useEffect(() => setRuleAdded(false), []);
+  useEffect(() => {
+    setTypedRule("");
+    setRuleAdded(false);
+  }, [props.card]);
   if (ruleAdded === false) {
     return (
       <form>
-        <label htmlFor="rule">Add a rule</label>
         <input
           name="rule"
           type="text"
@@ -20,12 +24,11 @@ export function AddARule(props: {
         ></input>
         <button
           type="button"
-          className="btn btn-success"
+          className="btn btn-success mx-2"
           onClick={() => {
             props.setRules((prev) => [...prev, typedRule]);
             setRuleAdded(true);
             props.setTurnCompleted(true);
-            setTypedRule("");
           }}
         >
           Add rule

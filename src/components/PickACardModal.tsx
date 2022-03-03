@@ -41,7 +41,7 @@ export function PickACardModal(props: {
         setTurnCompleted(true);
         break;
     }
-  }, [props.card.rank, props.players.length, props.teams]);
+  }, [props.card, props.players.length, props.teams]);
   return (
     <div
       className="modal"
@@ -76,6 +76,7 @@ export function PickACardModal(props: {
 
             {props.card.rank === "J" && (
               <AddARule
+                card={props.card}
                 setRules={props.setRules}
                 setTurnCompleted={setTurnCompleted}
               />
