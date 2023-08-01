@@ -9,11 +9,11 @@ export function cardDefinitions(card: ICard): string {
     case "3":
       return "Three is for me. Whoever picked this card, drink up!";
     case "4":
-      return "Four is for whore. Drink if you're a whore!";
+      return "Four is for girls. Drink if you're a wgirl!";
     case "5":
       return "Five is for thumb master.";
     case "6":
-      return "Six is for dicks. Drink if you have a dick!";
+      return "Six is for guys. Drink if you have a guy!";
     case "7":
       return "Seven is for heaven.";
     case "8":
